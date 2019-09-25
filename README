@@ -1,0 +1,100 @@
+How to run the shell
+
+Type command 'make'
+Type ./Shell to run the new shell.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+main.c is the main file of the shell.
+It prints the hostname and system name and calls appropriate functions after input is taken.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+ls.c file executes the ls command.
+
+
+Which command does ls support:-
+
+ls
+ls .
+ls -flag
+ls -flag Directory
+
+If you are giving flag as well as directory name then first you should give flag name then directory_name otherwise it won't work.
+Also all the flag should be given together.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+cd.c file executes cd commands.
+
+
+Which command does cd support:-
+cd 
+cd .
+cd ~
+cd directory_name
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+hist.c prints the history
+
+It can be in any one of the form given below:-
+
+history
+history <num>
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+nightswatch.c takes care of nightswatch command.
+
+It can be in any one of the form given below:-
+
+nightswatch -n time interrupt
+nightswatch -n time dirty
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+check.c finds out which command is given and calls the appropriate function
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+pwdo.c takes care of the pwd command.
+It always prints absolute path.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+add_hist.c always adds the current input to a file which can atmost store 20 commands.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+takeinput.c takes the command from the user.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+pinfo.c takes care of the pinfo command.
+
+It can be in any one of the form given below:-
+
+pinfo
+pinfo <num>
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+exec.c takes care of other system commands.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+print_dir.c prints the current directory you are in.
+The directory where the shell is, is treated as home directory.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+sep_space.c takes care of the multiple spaces.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+echo.c takes care of the echo command.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Enter exit to exit the shell.
