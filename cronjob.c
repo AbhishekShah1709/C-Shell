@@ -17,6 +17,7 @@ void call_cronjob(char **parsed,int len,char *dir,char *path_h)
 
     if(cnt1==1 && cnt2==1 && cnt3==1)
     {
+        printf("\n");
         p=0;
 
         while(p<len)

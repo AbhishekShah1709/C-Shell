@@ -2,5 +2,6 @@ cronjob in cd
 cronjob in nightswatch
 cronjob in env 
 error handling in cronjob
-
+ls ~
 permanent env
+only fg gives segfault

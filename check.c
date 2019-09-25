@@ -61,7 +61,14 @@ void Check(char** parsed,char *dir,int len,char *path_h,int time,int freq)
     else if(strcmp(parsed[0],"quit")==0)
         exit(0);
     else if(strcmp(parsed[0],"cronjob")==0)
-        call_cronjob(parsed,len,dir,path_h);
+    {
+        int piddd = fork();
+        if(piddd==0)
+        {
+            call_cronjob(parsed,len,dir,path_h);
+            exit(0);
+        }
+    }
     else
     {
         if(flag!=1)
@@ -87,8 +94,10 @@ void Check(char** parsed,char *dir,int len,char *path_h,int time,int freq)
 //                runn_proc[size].si=size+1;
 //                size++;
 
+                ctrl_z_cond=1;
                 int status;
                 waitpid(pidd,&status,WUNTRACED);
+                ctrl_z_cond=0;
             }
         }
     }

@@ -28,6 +28,7 @@ struct P{
 struct P runn_proc[2048];
 char bbuffer[100000];
 int flag;
+int ctrl_z_cond;
 int val;
 int size;
 int curr_fg_pid;

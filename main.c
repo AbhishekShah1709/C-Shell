@@ -2,40 +2,42 @@
 
 void sigintHandler1(int sig_num) 
 {
-    signal(SIGTSTP, sigintHandler1);
-    int ff=0;
-    printf("%s\n",curr_fg_proc_name);
-
-    for(int l=0;l<size;l++)
+    if(ctrl_z_cond==1)
     {
-        if(strcmp(runn_proc[l].proc_name,curr_fg_proc_name)==0 && runn_proc[l].pid!=-1)
+        signal(SIGTSTP, sigintHandler1);
+        int ff=0;
+        printf("%s\n",curr_fg_proc_name);
+
+        for(int l=0;l<size;l++)
         {
-            ff=1;
-            break;
+            if(strcmp(runn_proc[l].proc_name,curr_fg_proc_name)==0 && runn_proc[l].pid!=-1)
+            {
+                ff=1;
+                break;
+            }
         }
-    }
 
-    if(ff==0)
-    {
-        printf("hello\n");
-        strcpy(runn_proc[size].proc_name,curr_fg_proc_name);
-        runn_proc[size].pid=curr_fg_pid;
-        runn_proc[size].si=size+1;
-        size++;
+        if(ff==0)
+        {
+            strcpy(runn_proc[size].proc_name,curr_fg_proc_name);
+            runn_proc[size].pid=curr_fg_pid;
+            runn_proc[size].si=size+1;
+            size++;
+        }
+
+        printf("%d\n",curr_fg_pid);
+        kill(curr_fg_pid,SIGTSTP);
     }
-    
-    printf("%d\n",curr_fg_pid);
-    kill(curr_fg_pid,SIGTSTP);
 }
-/*
+
 void sigintHandler(int sig_num) 
 { 
     signal(SIGINT, sigintHandler); 
-
-    int get_idx=0;
+    int get_idx=-1;
 
     for(int l=0;l<size;l++)
     {
+        printf("%s\n",curr_fg_proc_name);
         if(strcmp(runn_proc[l].proc_name,curr_fg_proc_name)==0 && runn_proc[l].pid!=-1)
         {
             get_idx=l;
@@ -43,12 +45,15 @@ void sigintHandler(int sig_num)
         }
     }
 
-    printf("%d\n",get_idx);
-    kill(runn_proc[get_idx].pid,SIGINT);
-    printf("%d\n",get_idx);
-    runn_proc[get_idx].pid=-1;
+    printf("get_idx -- %d\n",get_idx);
+    if(get_idx>=0 && get_idx<size) 
+    {
+        kill(runn_proc[get_idx].pid,SIGINT);
+        runn_proc[get_idx].pid=-1;
+    }
+    printf("get_idx -- %d\n",get_idx);
 }
-*/
+
 int main() 
 {
     char **wow;
@@ -85,7 +90,7 @@ int main()
     strcpy(path_h2,dir);
     strcat(path_h2,"/h2.txt");
 
-//    signal(SIGINT,sigintHandler);   
+    signal(SIGINT,sigintHandler);   
     signal(SIGTSTP,sigintHandler1);   
 
     while(1)
@@ -184,7 +189,7 @@ int main()
             if(m==1)
             {
                 len = parseSpace(store[i],parsedArgs);
-                
+
                 while(it<len)
                 {
                     if((strcmp(parsedArgs[it],">")==0) || (strcmp(parsedArgs[it],"<")==0) || (strcmp(parsedArgs[it],">>")==0))
