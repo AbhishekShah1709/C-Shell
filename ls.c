@@ -1,6 +1,6 @@
 #include"global.h"
 
-void call_ls(char **parsed,int len,int time,int freq)
+void call_ls(char **parsed,char *dir,int len,int time,int freq)
 {
     int y = (freq/time);
     if(time==-1 || freq==-1)
@@ -11,7 +11,6 @@ void call_ls(char **parsed,int len,int time,int freq)
     }
 
     int x=0;
-
 
     while(x<y)
     {
@@ -57,7 +56,6 @@ void call_ls(char **parsed,int len,int time,int freq)
 
             else 
             {
-                //            printf("%s\n",parsed[itr]);
                 if(parsed[itr][0]=='-')
                 {
                     printf("Invalid flag\n");
@@ -66,6 +64,21 @@ void call_ls(char **parsed,int len,int time,int freq)
                 itr2 = itr;
             }
             itr++;
+        }
+
+        if(parsed[itr2][0]=='~')
+        {
+            char d[100];
+            strcpy(d,dir);
+            int len3 = strlen(d);
+            int len2 = strlen(parsed[itr2]);
+            for(int i=1;i<len2;i++)
+            {
+                d[len3]=parsed[1][i];
+                len3++;
+            }
+
+            strcpy(parsed[itr2],d);
         }
 
         if(len==1)
@@ -146,7 +159,6 @@ void call_ls(char **parsed,int len,int time,int freq)
 
                 else
                     printf("Invalid flag\n");
-
             }
 
             else
@@ -200,5 +212,4 @@ void call_ls(char **parsed,int len,int time,int freq)
         x++;
 
     }
-
 }

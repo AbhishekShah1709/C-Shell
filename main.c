@@ -6,11 +6,11 @@ void sigintHandler1(int sig_num)
     {
         signal(SIGTSTP, sigintHandler1);
         int ff=0;
-        printf("%s\n",curr_fg_proc_name);
+        printf("\n%s\n",curr_fg_proc_name);
 
         for(int l=0;l<size;l++)
         {
-            if(strcmp(runn_proc[l].proc_name,curr_fg_proc_name)==0 && runn_proc[l].pid!=-1)
+            if((runn_proc[l].pid==curr_fg_pid) && runn_proc[l].pid!=-1)
             {
                 ff=1;
                 break;
@@ -25,33 +25,35 @@ void sigintHandler1(int sig_num)
             size++;
         }
 
-        printf("%d\n",curr_fg_pid);
         kill(curr_fg_pid,SIGTSTP);
     }
 }
 
 void sigintHandler(int sig_num) 
-{ 
-    signal(SIGINT, sigintHandler); 
-    int get_idx=-1;
-
-    for(int l=0;l<size;l++)
+{
+    if(ctrl_c_cond==1)
     {
-        printf("%s\n",curr_fg_proc_name);
-        if(strcmp(runn_proc[l].proc_name,curr_fg_proc_name)==0 && runn_proc[l].pid!=-1)
+        signal(SIGINT, sigintHandler); 
+        int get_idx=-1;
+
+        for(int l=0;l<size;l++)
         {
-            get_idx=l;
-            break;
+            if((runn_proc[l].pid==curr_fg_pid) && runn_proc[l].pid!=-1)
+            {
+                get_idx=l;
+                break;
+            }
         }
-    }
 
-    printf("get_idx -- %d\n",get_idx);
-    if(get_idx>=0 && get_idx<size) 
-    {
-        kill(runn_proc[get_idx].pid,SIGINT);
-        runn_proc[get_idx].pid=-1;
+        kill(curr_fg_pid,SIGINT);
+
+        if(get_idx>=0 && get_idx<size) 
+        {
+            runn_proc[get_idx].pid=-1;
+        }
+        
+        printf("\n");
     }
-    printf("get_idx -- %d\n",get_idx);
 }
 
 int main() 
@@ -126,7 +128,6 @@ int main()
                     {
                         proc_name = runn_proc[i].proc_name;
                         runn_proc[i].pid=-1;
-                        printf("hello\n");
                         fprintf(stderr, "%s with pid %d exited normally.\n",proc_name,(int)pid);
                         break;
                     }
@@ -141,8 +142,6 @@ int main()
                     {
                         proc_name = runn_proc[i].proc_name;
                         runn_proc[i].pid = -1;
-                        printf("hello\n");
-
                         fprintf(stderr,"%s with %d pid terminated by a signal.\n",proc_name,(int)pid);
                         break;
                     }

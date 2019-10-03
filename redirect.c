@@ -41,7 +41,7 @@ void call_redirection(char **parsed,int len)
 
     for(int x=0;x<len;x++)
     {
-        if(strcmp(parsed[x],">")==0 || strcmp(parsed[x],"<")==0)
+        if(strcmp(parsed[x],">")==0 || strcmp(parsed[x],"<")==0 || strcmp(parsed[x],">>")==0)
         {
             iter3=x;
             break;

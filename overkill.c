@@ -1,10 +1,14 @@
 #include"global.h"
 
-void call_overkill()
+void call_overkill(int len)
 {
+    if(len!=1)
+    {
+        fprintf(stderr,"Error: Invalid arguements\n");
+        return;
+    }
     for(int h=0;h<size;h++)
     {
-        printf("h -- %d, name -- %s, pid -- %d\n",h,runn_proc[h].proc_name,runn_proc[h].pid);
         if(runn_proc[h].pid!=-1)
         {
             kill(runn_proc[h].pid,9);

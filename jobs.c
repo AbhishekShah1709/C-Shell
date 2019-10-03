@@ -1,7 +1,12 @@
 #include"global.h"
 
-void call_jobs(int time,int freq)
+void call_jobs(int len,int time,int freq)
 {
+    if(len!=1)
+    {
+        fprintf(stderr,"Error: Invalid arguements\n");
+        return;
+    }
     int y = (freq/time);
 
     if(time==-1 || freq==-1)

@@ -12,17 +12,6 @@ It prints the hostname and system name and calls appropriate functions after inp
 
 ls.c file executes the ls command.
 
-
-Which command does ls support:-
-
-ls
-ls .
-ls -flag
-ls -flag Directory
-
-If you are giving flag as well as directory name then first you should give flag name then directory_name otherwise it won't work.
-Also all the flag should be given together.
-
 -------------------------------------------------------------------------------------------------------------------------------
 
 cd.c file executes cd commands.
@@ -97,4 +86,40 @@ echo.c takes care of the echo command.
 
 -------------------------------------------------------------------------------------------------------------------------------
 
-Enter exit to exit the shell.
+bg.c makes any stopped process to run in background.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+fg.c brings any process in foreground.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+jobs.c prints all the jobs which are running in background or are stopped currently.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+overkill.c kills all the jobs which are either currently running in background or are stopped.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+kjob.c sends signal to a specific job after taking the job id and signal to be given to that job.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+setenv.c sets any variable with a given value if the value is given or else it just intializes the variable to empty.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+unsetenv.c removes the value of the given variable and removes it from the env list.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+redirect.c handles all the commands involving redirection.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+cronjob.c executes any particluar command every t seconds until p seconds are over.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+Enter quit to exit the shell.

@@ -42,7 +42,6 @@ void call_cd(char **parsed,char *dir,int time,int freq)
             if(chdir(dir)!=0)
             {
                 perror("Cannot access");
-
             }
         }
         else if(parsed[1][0]=='~')

@@ -1,7 +1,13 @@
 #include "global.h"
 
-void printhistory(char **parsed,char *path_h,int time,int freq)
+void printhistory(char **parsed,int len,char *path_h,int time,int freq)
 {
+    if(len>2)
+    {
+        fprintf(stderr,"Error: Invalid arguements\n");
+        return;
+    }
+
     int y = (freq/time);
 
     if(time==-1 || freq==-1)

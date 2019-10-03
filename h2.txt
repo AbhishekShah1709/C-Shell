@@ -1,1 +1,1 @@
-quit!pwd!echo hii!echo hii!pwd!quit!quit!quit!cronjob -c ls -t 3 -p 6!!!history!!!!history!!!!quit!
+jobs!overkill!c!clear!quit!ls!ls &!c!clear!ls &!!!!!jobs!!c!clear!cd Down	!quit!

@@ -1,8 +1,12 @@
 #include"global.h"
 
-void call_fg(char **parsed)
+void call_fg(char **parsed,int len)
 {
-    printf("fg\n");
+    if(len!=2)
+    {
+        fprintf(stderr,"Error: Invalid arguement\n");
+        return;
+    }
     int pg,num,status;
     sscanf(parsed[1],"%d",&num);
 
@@ -21,19 +25,13 @@ void call_fg(char **parsed)
     else
     {
         printf("%s\n",runn_proc[num-1].proc_name);
-        kill(pg, 18);
-        printf("hii1\n");
+        kill(pg, SIGCONT);
         strcpy(curr_fg_proc_name,runn_proc[num-1].proc_name);
-        printf("hii2\n");
         curr_fg_pid = pg;
-        printf("hii3\n");
         ctrl_z_cond=1;
-        printf("hii4\n");
-        printf("%d\n",pg);
-        waitpid(pg, &status, WUNTRACED);
-        printf("%d\n",pg);
-        printf("hii5\n");
+        ctrl_c_cond=1;
+        waitpid(pg, NULL, WUNTRACED);
         ctrl_z_cond=0;
-        printf("hii6\n");
+        ctrl_c_cond=0;
     }
 }

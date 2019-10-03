@@ -33,33 +33,36 @@ void Check(char** parsed,char *dir,int len,char *path_h,int time,int freq)
     if(strcmp(parsed[0],"cd")==0)
         call_cd(parsed,dir,time,freq);
     else if(strcmp(parsed[0],"ls")==0)
-        call_ls(parsed,len,time,freq);
+        call_ls(parsed,dir,len,time,freq);
     else if(strcmp(parsed[0],"echo")==0)
         call_echo(parsed,time,freq);
     else if(strcmp(parsed[0],"history")==0)
-        printhistory(parsed,path_h,time,freq);
+        printhistory(parsed,len,path_h,time,freq);
     else if(strcmp(parsed[0],"pwd")==0)
         call_pwd(time,freq);
     else if(strcmp(parsed[0],"pinfo")==0)
-        call_pinfo(parsed,time,freq);
+        call_pinfo(parsed,len,time,freq);
     else if(strcmp(parsed[0],"nightswatch")==0)
-        call_nightswatch(parsed);
+        call_nightswatch(parsed,len);
     else if(strcmp(parsed[0],"setenv")==0)
         call_setenv(parsed,len,time,freq);
     else if(strcmp(parsed[0],"unsetenv")==0)
         call_unsetenv(parsed,len,time,freq);
     else if(strcmp(parsed[0],"jobs")==0)
-        call_jobs(time,freq);
+        call_jobs(len,time,freq);
     else if(strcmp(parsed[0],"kjob")==0)
         call_kjob(parsed,len);
     else if(strcmp(parsed[0],"overkill")==0)
-        call_overkill();
+        call_overkill(len);
     else if(strcmp(parsed[0],"fg")==0)
-        call_fg(parsed);
+        call_fg(parsed,len);
     else if(strcmp(parsed[0],"bg")==0)
-        call_bg(parsed);
+        call_bg(parsed,len);
     else if(strcmp(parsed[0],"quit")==0)
+    {
+        call_overkill(1);
         exit(0);
+    }
     else if(strcmp(parsed[0],"cronjob")==0)
     {
         int piddd = fork();
@@ -77,6 +80,7 @@ void Check(char** parsed,char *dir,int len,char *path_h,int time,int freq)
        
             if(pidd==0)
             {
+                setpgid(0,0);
                 val = call_exec(parsed);
                 if(val==-1)
                     fprintf(stderr,"Error:command not found\n");
@@ -95,9 +99,11 @@ void Check(char** parsed,char *dir,int len,char *path_h,int time,int freq)
 //                size++;
 
                 ctrl_z_cond=1;
+                ctrl_c_cond=1;
                 int status;
                 waitpid(pidd,&status,WUNTRACED);
                 ctrl_z_cond=0;
+                ctrl_c_cond=0;
             }
         }
     }

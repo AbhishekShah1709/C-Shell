@@ -1,7 +1,13 @@
 #include"global.h"
 
-void call_bg(char **parsed)
+void call_bg(char **parsed,int len)
 {
+    if(len!=2)
+    {
+        fprintf(stderr,"Error: Invalid arguements\n");
+        return;
+    }
+
     int pg,num;
     sscanf(parsed[1],"%d",&num);
 

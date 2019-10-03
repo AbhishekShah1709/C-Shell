@@ -1,7 +1,12 @@
 #include"global.h"
 
-void call_nightswatch(char **parsed)
+void call_nightswatch(char **parsed,int len)
 {
+    if(len!=4)
+    {
+        fprintf(stderr,"Error: Invalid arguements\n");
+        return;
+    }
     if(parsed[1]==NULL || parsed[2]==NULL || parsed[3]==NULL)
     {
         printf("Insufficient arguements for this command\n");
