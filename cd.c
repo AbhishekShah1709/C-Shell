@@ -16,6 +16,14 @@ void call_cd(char **parsed,char *dir,int time,int freq)
 
     while(i<y)
     {
+		char str1[100],str2[100];
+		strcpy(str1,parsed[1]);
+		strcpy(str2,dir);
+		if(str1[0] == '~')
+		{
+			strcat(str2,str1+1);
+			chdir(str2);
+		}
         sleep(time);
         if(parsed[1]!=NULL)
         {
