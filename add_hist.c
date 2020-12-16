@@ -6,7 +6,9 @@ void addhistory(char *argu,char *path_h)
     if(fd4==-1)
         perror("not opened");
     lseek(fd4,0,SEEK_END);
-
+	if(argu[0] == '\n'){
+		return;
+	}
     write(fd4,argu,strlen(argu));
     write(fd4,"!",1);
     close(fd4);
